@@ -6,36 +6,42 @@ import com.library.repository.BookRepository;
 
 public class Library {
 
-    ArrayList<Book> books = new ArrayList<>();
-    private BookRepository bookRepository = new BookRepository();
+    private final ArrayList<Book> books = new ArrayList<>();
+    private final BookRepository bookRepository = new BookRepository();
     void addBook(Book book){
         books.add(book);
     }
 
-    void removeBook(String title) {
-        boolean found = false;   // ① Start by assuming the book is NOT found
-        for (Book book : books) {
-            if (book.getTitle().equals(title)) {
-                books.remove(book);
-                found = true;    // ② We found and removed the book
-                break;
-            }
-        }
-        if (!found) {            // ③ After the loop finishes
-            System.out.println("Book not found.");
-        } else {
-            System.out.println("Book removed successfully!");
+   public void removeBook(String title) {
+    boolean found = false;
+
+    Iterator<Book> iterator = books.iterator();
+
+    while (iterator.hasNext()) {
+        Book book = iterator.next();
+
+        if (book.getTitle().equals(title)) {
+            iterator.remove();
+            found = true;
+            break;
         }
     }
-    void saveBooks() {
+
+    if (!found) {
+        System.out.println("Book not found.");
+    } else {
+        System.out.println("Book removed successfully!");
+    }
+}
+  public void saveBooks() {
     bookRepository.saveBooks(books);
 }
 
-void loadBooks() {
+public void loadBooks() {
     bookRepository.loadBooks(books);
 }
 
-    void searchBook(String title) {
+   public void searchBook(String title) {
         boolean found = false;
         for (Book book : books) {
             if (book.getTitle().equals(title)) {
@@ -51,7 +57,7 @@ void loadBooks() {
     }
 
 
-    void updateBook(String title,String newTitle, String author, int pages) {
+   public void updateBook(String title,String newTitle, String author, int pages) {
         boolean found = false;
         for (Book book : books) {
             if (book.getTitle().equals(title)) {
@@ -71,7 +77,7 @@ void loadBooks() {
         }
     }
 
-    void displayBooks(){
+  public  void displayBooks(){
         if(books.isEmpty()){
             System.out.println("No books found");
         }

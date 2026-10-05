@@ -6,19 +6,29 @@ public class Book {
     private String author;
     private int pages;
 
+    private void validateTitle(String title) {
+        if (title == null || title.trim().isEmpty()) {
+            throw new IllegalArgumentException("Title cannot be empty.");
+        }
+    }
+
+    private void validateAuthor(String author) {
+        if (author == null || author.trim().isEmpty()) {
+            throw new IllegalArgumentException("Author cannot be empty.");
+        }
+    }
+
+    private void validatePages(int pages) {
+        if (pages <= 0) {
+            throw new IllegalArgumentException("Pages must be greater than 0.");
+        }
+    }
+
   public Book(String title, String author, int pages) {
 
-    if (title == null || title.trim().isEmpty()) {
-        throw new IllegalArgumentException("Title cannot be empty.");
-    }
-
-    if (author == null || author.trim().isEmpty()) {
-        throw new IllegalArgumentException("Author cannot be empty.");
-    }
-
-    if (pages <= 0) {
-        throw new IllegalArgumentException("Pages must be greater than 0.");
-    }
+    validateTitle(title);
+    validateAuthor(author);
+    validatePages(pages);
 
     this.title = title;
     this.author = author;
@@ -30,9 +40,7 @@ public class Book {
     }
 
     public void setTitle(String title) {
-    if (title == null || title.trim().isEmpty()) {
-        throw new IllegalArgumentException("Title cannot be empty.");
-    }
+    validateTitle(title);
 
     this.title = title;
 }
@@ -42,9 +50,7 @@ public class Book {
     }
 
     public void setAuthor(String author) {
-    if (author == null || author.trim().isEmpty()) {
-        throw new IllegalArgumentException("Author cannot be empty.");
-    }
+   validateAuthor(author);
 
     this.author = author;
 }
@@ -54,9 +60,7 @@ public class Book {
     }
 
     public void setPages(int pages) {
-    if (pages <= 0) {
-        throw new IllegalArgumentException("Pages must be greater than 0.");
-    }
+ validatePages(pages);
 
     this.pages = pages;
 }
