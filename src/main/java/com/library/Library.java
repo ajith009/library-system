@@ -8,9 +8,18 @@ public class Library {
 
     private final ArrayList<Book> books = new ArrayList<>();
     private final BookRepository bookRepository = new BookRepository();
-    void addBook(Book book){
-        books.add(book);
+
+   public void addBook(Book book) {
+    for (Book existingBook : books) {
+        if (existingBook.getTitle().trim().equalsIgnoreCase(book.getTitle().trim()))  {
+            System.out.println("A book with this title already exists.");
+            return;
+        }
     }
+
+    books.add(book);
+    System.out.println("Book added successfully!");
+}
 
    public void removeBook(String title) {
     boolean found = false;
