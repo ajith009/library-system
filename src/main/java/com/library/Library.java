@@ -20,7 +20,7 @@ public class Library {
     while (iterator.hasNext()) {
         Book book = iterator.next();
 
-        if (book.getTitle().equals(title)) {
+        if (book.getTitle().equalsIgnoreCase(title)) {
             iterator.remove();
             found = true;
             break;
@@ -44,7 +44,7 @@ public void loadBooks() {
    public void searchBook(String title) {
         boolean found = false;
         for (Book book : books) {
-            if (book.getTitle().equals(title)) {
+            if (book.getTitle().equalsIgnoreCase(title)) {
                 System.out.println("Book found successfully!");
                 book.displayBook();
                 found = true;
@@ -60,7 +60,7 @@ public void loadBooks() {
    public void updateBook(String title,String newTitle, String author, int pages) {
         boolean found = false;
         for (Book book : books) {
-            if (book.getTitle().equals(title)) {
+            if (book.getTitle().equalsIgnoreCase(title)) {
                 book.setTitle( newTitle);
                 book.setAuthor(author);
                 book.setPages(pages);
