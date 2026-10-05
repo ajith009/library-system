@@ -53,7 +53,7 @@ public void loadBooks() {
    public void searchBook(String title) {
         boolean found = false;
         for (Book book : books) {
-            if (book.getTitle().equalsIgnoreCase(title)) {
+           if (book.getTitle().toLowerCase().contains(title.trim().toLowerCase()))  {
                 System.out.println("Book found successfully!");
                 book.displayBook();
                 found = true;
