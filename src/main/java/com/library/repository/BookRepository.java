@@ -50,7 +50,23 @@ public class BookRepository {
                             Integer.parseInt(parts[2].trim())
                     );
 
-                    books.add(book);
+                    boolean duplicate = false;
+
+                    for (Book existingBook : books) {
+                        if (existingBook.getTitle().trim()
+                                .equalsIgnoreCase(book.getTitle().trim())) {
+                            duplicate = true;
+                            break;
+                        }
+                    }
+
+                    if (duplicate) {
+                        System.out.println(
+                                "Skipping duplicate book: " + book.getTitle()
+                        );
+                    } else {
+                        books.add(book);
+                    }
 
                 } catch (IllegalArgumentException e) {
                     System.out.println(
