@@ -65,9 +65,10 @@ public class Book {
     this.pages = pages;
 }
 
-    public void displayBook() {
-        System.out.println("Title: " + title);
-        System.out.println("Author: " + author);
-        System.out.println("Pages: " + pages);
-    }
+   @Override
+public String toString() {
+    return "Title: " + title
+            + ", Author: " + author
+            + ", Pages: " + pages;
+}
 }

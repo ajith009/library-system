@@ -55,7 +55,7 @@ public void loadBooks() {
         for (Book book : books) {
            if (book.getTitle().toLowerCase().contains(title.trim().toLowerCase()))  {
                 System.out.println("Book found successfully!");
-                book.displayBook();
+                System.out.println(book);
                 found = true;
                 break;
             }
@@ -92,7 +92,7 @@ public void loadBooks() {
         }
         else{
             for(Book book : books){
-                book.displayBook();
+                System.out.println(book);
             }
         }
     }
