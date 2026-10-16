@@ -1,3 +1,4 @@
+
 package com.library.repository;
 
 import com.library.model.Book;
@@ -14,9 +15,7 @@ public class BookRepository {
     private final String fileName = "books";
 
     public void saveBooks(ArrayList<Book> books) {
-
-        try {
-            FileWriter writer = new FileWriter(fileName);
+        try (FileWriter writer = new FileWriter(fileName)) {
 
             for (Book book : books) {
                 writer.write(
@@ -26,34 +25,39 @@ public class BookRepository {
                 );
             }
 
-            writer.close();
-
         } catch (IOException e) {
             System.out.println("Error writing books.");
         }
     }
 
     public void loadBooks(ArrayList<Book> books) {
-
-        try {
-            File file = new File(fileName);
-            Scanner reader = new Scanner(file);
+        try (Scanner reader = new Scanner(new File(fileName))) {
 
             while (reader.hasNextLine()) {
-
                 String line = reader.nextLine();
-                String[] parts = line.split(",");
+                String[] parts = line.split(",", -1);
 
-                Book book = new Book(
-                        parts[0].trim(),
-                        parts[1].trim(),
-                        Integer.parseInt(parts[2].trim())
-                );
+                try {
+                    if (parts.length != 3) {
+                        throw new IllegalArgumentException(
+                                "Invalid book format."
+                        );
+                    }
 
-                books.add(book);
+                    Book book = new Book(
+                            parts[0].trim(),
+                            parts[1].trim(),
+                            Integer.parseInt(parts[2].trim())
+                    );
+
+                    books.add(book);
+
+                } catch (IllegalArgumentException e) {
+                    System.out.println(
+                            "Skipping invalid book record: " + line
+                    );
+                }
             }
-
-            reader.close();
 
         } catch (FileNotFoundException e) {
             System.out.println("No saved books found.");
