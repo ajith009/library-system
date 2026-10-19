@@ -34,12 +34,21 @@ public class BookRepository {
             }
 
         } catch (IOException e) {
-            System.out.println("Error writing books.");
+            System.out.println(
+                    "Error writing books: " + e.getMessage()
+            );
         }
     }
 
     public void loadBooks(ArrayList<Book> books) {
-        try (Scanner reader = new Scanner(new File(fileName))) {
+        File file = new File(fileName);
+
+        if (!file.exists()) {
+            System.out.println("No saved books found yet.");
+            return;
+        }
+
+        try (Scanner reader = new Scanner(file)) {
 
             while (reader.hasNextLine()) {
                 String line = reader.nextLine();
@@ -92,7 +101,9 @@ public class BookRepository {
             }
 
         } catch (FileNotFoundException e) {
-            System.out.println("No saved books found.");
+            System.out.println(
+                    "Error reading saved books: " + e.getMessage()
+            );
         }
     }
 }
